@@ -95,6 +95,9 @@ public abstract class Encoder {
     this.height = height;
   }
 
+  /**
+   * delay in ms
+   */
   public void setFrameDelay(int delay) {
     frameDelay = delay;
   }
@@ -133,6 +136,9 @@ public abstract class Encoder {
     encodeFinishListener = listener;
   }
 
+  /**
+   * Reserved for gif encoder
+   */
   public void notifyLastFrameAdded() {
     setState(STATE_RECORDING_UNTIL_LAST_FRAME);
   }
