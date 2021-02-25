@@ -37,7 +37,7 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-implementation 'com.github.dbof10:Bitmp4:0.1'
+implementation 'com.github.dbof10:Bitmp4:0.1.1'
 ```
 
 Apps using Bitmp4
@@ -48,7 +48,7 @@ Apps using Bitmp4
 License
 -------
 
-    Copyright 2018 Ctech Inc
+    Copyright 2021 Ctech Inc
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
