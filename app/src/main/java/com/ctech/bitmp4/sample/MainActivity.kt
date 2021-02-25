@@ -4,8 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Environment
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ctech.bitmp4.Encoder
 import com.ctech.bitmp4.MP4Encoder
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val downloarDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val downloarDir = getExternalFilesDir(null)
         val exportedFile = File(downloarDir, "export.mp4")
         if (exportedFile.exists()) {
             exportedFile.delete()
