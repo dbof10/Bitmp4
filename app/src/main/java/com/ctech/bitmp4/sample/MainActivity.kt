@@ -3,33 +3,32 @@ package com.ctech.bitmp4.sample
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.ctech.bitmp4.Encoder
 import com.ctech.bitmp4.MP4Encoder
+import com.ctech.bitmp4.sample.databinding.ActivityMainBinding
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_main.btExport
-import kotlinx.android.synthetic.main.activity_main.btStop
-import kotlinx.android.synthetic.main.activity_main.ivRecord
 import java.io.File
 import java.util.concurrent.TimeUnit.MILLISECONDS
 
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var exportDisposable: Disposable
     private lateinit var encoder: Encoder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
-        val downloarDir = getExternalFilesDir(null)
+        val downloarDir = filesDir
         val exportedFile = File(downloarDir, "export.mp4")
         if (exportedFile.exists()) {
             exportedFile.delete()
@@ -41,24 +40,24 @@ class MainActivity : AppCompatActivity() {
         Glide.with(this)
                 .asGif()
                 .load(R.drawable.zzz)
-                .into(ivRecord)
+                .into(binding.ivRecord)
 
 
-        btExport.setOnClickListener {
+        binding.btExport.setOnClickListener {
             startExport()
         }
 
-        btStop.setOnClickListener {
+        binding.btStop.setOnClickListener {
             stopExport()
         }
     }
 
     private fun startExport() {
-        encoder.setOutputSize(ivRecord.width, ivRecord.width)
+        encoder.setOutputSize(binding.ivRecord.width, binding.ivRecord.width)
         encoder.startEncode()
         exportDisposable = Observable.interval(30, MILLISECONDS)
                 .map {
-                    createBitmapFromView(ivRecord)
+                    createBitmapFromView(binding.ivRecord)
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
